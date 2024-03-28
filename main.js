@@ -7,7 +7,7 @@ scene.background = new THREE.Color(0xffffff);
 const camera = new THREE.PerspectiveCamera(25, 4/3, 0.1, 1000); // Adjusted aspect ratio
 camera.position.set(0, 0, 10);
 
-const renderer = new THREE.WebGLRenderer();
+const renderer = new THREE.WebGLRenderer({ antialias: true });
 renderer.setPixelRatio(window.devicePixelRatio);
 
 // Calculate the width and height for a 4:3 aspect ratio
