@@ -12,16 +12,11 @@ renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight);
 document.body.appendChild(renderer.domElement);
 
-// const ambientLight = new THREE.AmbientLight(0xffffff, 1); // Add ambient light with intensity 0.5
-// scene.add(ambientLight);
-
 for (var i = 0; i < 3; i++) {
   let directionalLight = new THREE.PointLight(0xffffff, 50); // Add a directional light with intensity 1
   directionalLight.position.set((i * 6) - 6, 0, 5); // Set the position of the light
   scene.add(directionalLight);
 }
-
-
 
 const loader = new OBJLoader();
 let cartoon, surface;
@@ -56,10 +51,8 @@ loader.load(
   }
 );
 
+
 function animate() {
-  
-
-
   requestAnimationFrame(animate);
 
   if (cartoon && surface) {
@@ -75,7 +68,6 @@ animate();
 
 
 function apply_color(object, color, roughness) {
-
   object.traverse((child) => {
     if (child instanceof THREE.Mesh) {
       const material = new THREE.MeshStandardMaterial({
@@ -87,6 +79,7 @@ function apply_color(object, color, roughness) {
       child.material = material;
     }
   });
+  
 }
 
 var isDragging = false;
