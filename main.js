@@ -2,15 +2,32 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0x1f1f1f);
+scene.background = new THREE.Color(0xffffff);
 
-const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
-camera.position.set(0, 0, 10); // Adjust the camera position as needed
+const camera = new THREE.PerspectiveCamera(25, 4/3, 0.1, 1000); // Adjusted aspect ratio
+camera.position.set(0, 0, 10);
 
 const renderer = new THREE.WebGLRenderer();
 renderer.setPixelRatio(window.devicePixelRatio);
-renderer.setSize(window.innerWidth, window.innerHeight);
+
+// Calculate the width and height for a 4:3 aspect ratio
+const canvasHeight = window.innerHeight; // Maintain 4:3 aspect ratio
+const canvasWidth = (canvasHeight / 3) * 4; // 75% of the window width
+renderer.setSize(canvasWidth, canvasHeight);
+
+// Position the renderer's DOM element on the right side of the screen
+// renderer.domElement.style.position = 'absolute';
+renderer.domElement.style.float = 'right'
+
 document.body.appendChild(renderer.domElement);
+
+window.addEventListener('resize', () => {
+  const height = window.innerHeight;
+  const width = (height / 3) * 4;
+  renderer.setSize(width, height);
+  camera.aspect = width / height;
+  camera.updateProjectionMatrix();
+});
 
 for (var i = 0; i < 3; i++) {
   let directionalLight = new THREE.PointLight(0xffffff, 50); // Add a directional light with intensity 1
@@ -25,10 +42,10 @@ loader.load(
   'RasK_cartoon.obj',
   (object) => {
     cartoon = object;
-    cartoon.position.x -= 3;
+    cartoon.position.x -= 1.25;
     scene.add(cartoon);
-    cartoon.scale.setScalar(0.05);
-    apply_color(cartoon, 0xfc0808, 0);
+    cartoon.scale.setScalar(0.04);
+    apply_color(cartoon, 0xff0000, 0);
   },
   (xhr) => {},
   (error) => {
@@ -40,10 +57,10 @@ loader.load(
   'RasK_surface.obj',
   (object) => {
     surface = object;
-    surface.position.x += 3;
+    surface.position.x += 1.25;
     scene.add(surface);
-    surface.scale.setScalar(0.05);
-    apply_color(surface, 0x0384fd, 0);
+    surface.scale.setScalar(0.04);
+    apply_color(surface, 0x008cff, 0, true);
   },
   (xhr) => {},
   (error) => {
@@ -67,18 +84,31 @@ function animate() {
 animate();
 
 
-function apply_color(object, color, roughness) {
-  object.traverse((child) => {
-    if (child instanceof THREE.Mesh) {
-      const material = new THREE.MeshStandardMaterial({
-        color: color,
-        roughness: roughness,
-        emissive: color, // White emissive color
-        emissiveIntensity: 0.5,
-      });
-      child.material = material;
-    }
-  });
+function apply_color(object, color, roughness, emissive = false) {
+  if (emissive) {
+    object.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        const material = new THREE.MeshStandardMaterial({
+          color: color,
+          roughness: roughness,
+          emissive: color, // White emissive color
+          emissiveIntensity: 0.5,
+        });
+        child.material = material;
+      }
+    });
+  } else {
+    object.traverse((child) => {
+      if (child instanceof THREE.Mesh) {
+        const material = new THREE.MeshStandardMaterial({
+          color: color,
+          roughness: roughness,
+        });
+        child.material = material;
+      }
+    });
+  }
+  
   
 }
 
