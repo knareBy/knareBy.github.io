@@ -1,4 +1,28 @@
 body {
   margin: 0;
-  box-sizing: border-box;
-  }
+  padding: 0;
+  font-family: Arial, sans-serif;
+}
+
+#hero-section {
+  position: absolute;
+  left: 20px; /* Adjust the left position as needed */
+  top: 20px; /* Adjust the top position as needed */
+  color: black; /* Adjust the color as needed */
+  padding: 20px; /* Add padding for better readability */
+}
+
+#hero-section h1 {
+  font-size: 8em; /* Adjust the font size of the main heading */
+  margin-bottom: 10px; /* Add spacing below the main heading */
+}
+
+#hero-section h2 {
+  font-size: 3em; /* Adjust the font size of the subheading */
+  margin-bottom: 10px; /* Add spacing below the subheading */
+}
+
+#hero-section p {
+  font-size: 1em; /* Adjust the font size of the paragraph */
+  margin: 0; /* Remove default margin for the paragraph */
+}
