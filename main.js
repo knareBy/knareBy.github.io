@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xFFFFFF);
+scene.background = new THREE.Color(0x1f1f1f);
 
 const camera = new THREE.PerspectiveCamera(30, window.innerWidth / window.innerHeight, 0.1, 1000);
 camera.position.set(0, 0, 10); // Adjust the camera position as needed
