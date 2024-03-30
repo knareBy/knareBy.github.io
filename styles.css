@@ -4,6 +4,43 @@ body {
   font-family: Arial, sans-serif;
 }
 
+/* Style the navbar */
+.navbar {
+  overflow: hidden;
+  background-color: #333; /* Background color of the navbar */
+  position: fixed; /* Fix the navbar to the top of the viewport */
+  width: 100%; /* Set the navbar width to 100% */
+  transition: top 0.3s; /* Add smooth transition */
+  z-index: 1000; /* Set z-index to ensure it's above other content */
+}
+
+/* Style the links inside the navbar */
+.navbar a {
+  float: left;
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 14px 20px; /* Top and bottom padding, left and right padding */
+  text-decoration: none; /* Remove underline from links */
+}
+
+/* Change the color of the active link */
+.navbar a.active {
+  background-color: #555; /* Background color of the active link */
+}
+
+/* Add a hover effect (highlight the link when the cursor is over it) */
+.navbar a:hover {
+  background-color: #ddd; /* Background color on hover */
+  color: black;
+}
+
+/* Add some styles for the content */
+.content {
+  padding-top: 60px; /* Adjust based on the height of the navbar */
+}
+
+
 #hero-section {
   position: absolute;
   left: 20px; /* Adjust the left position as needed */
@@ -13,12 +50,12 @@ body {
 }
 
 #hero-section h1 {
-  font-size: 8em; /* Adjust the font size of the main heading */
+  font-size: 4em; /* Adjust the font size of the main heading */
   margin-bottom: 10px; /* Add spacing below the main heading */
 }
 
 #hero-section h2 {
-  font-size: 3em; /* Adjust the font size of the subheading */
+  font-size: 1.5em; /* Adjust the font size of the subheading */
   margin-bottom: 10px; /* Add spacing below the subheading */
 }
 
