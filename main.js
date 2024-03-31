@@ -2,28 +2,28 @@ import * as THREE from 'three';
 import { OBJLoader } from 'three/examples/jsm/loaders/OBJLoader.js';
 
 const scene = new THREE.Scene();
-scene.background = new THREE.Color(0xffffff);
+// scene.background = new THREE.Color(0x000000);
 
-const camera = new THREE.PerspectiveCamera(25, 4/3, 0.1, 1000); // Adjusted aspect ratio
+const canvasWidth = window.innerWidth;
+const canvasHeight = window.innerHeight;
+
+const camera = new THREE.PerspectiveCamera(25, canvasWidth/canvasHeight, 0.1, 1000); // Adjusted aspect ratio
 camera.position.set(0, 0, 10);
 
-const renderer = new THREE.WebGLRenderer({ antialias: true });
+const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
 renderer.setPixelRatio(window.devicePixelRatio);
-
-// Calculate the width and height for a 4:3 aspect ratio
-const canvasHeight = window.innerHeight; // Maintain 4:3 aspect ratio
-const canvasWidth = (canvasHeight / 3) * 4; // 75% of the window width
+renderer.setClearColor( 0x000000, 0);
 renderer.setSize(canvasWidth, canvasHeight);
 
 // Position the renderer's DOM element on the right side of the screen
 // renderer.domElement.style.position = 'absolute';
 renderer.domElement.style.float = 'right'
-
-document.body.appendChild(renderer.domElement);
+let rendererParent = document.getElementById('hero-section');
+rendererParent.appendChild(renderer.domElement);
 
 window.addEventListener('resize', () => {
   const height = window.innerHeight;
-  const width = (height / 3) * 4;
+  const width = window.innerWidth;
   renderer.setSize(width, height);
   camera.aspect = width / height;
   camera.updateProjectionMatrix();
@@ -73,8 +73,8 @@ function animate() {
   requestAnimationFrame(animate);
 
   if (cartoon && surface) {
-    cartoon.rotation.x += 0.001;
-    cartoon.rotation.y += 0.001;
+    cartoon.rotation.x += 0.00075;
+    cartoon.rotation.y += 0.00075;
     surface.rotation.copy(cartoon.rotation);
   }
 
